@@ -26,7 +26,7 @@ class MotorBalap extends Motor {
 
 // Membuat Objek
 const motor1 = new Motor('Supra', 'Hijau');
-motor1.jalan(); // Output: Toyota berwarna merah sedang berjalan.
+motor1.jalan(); // Output: Supra berwarna Hijau sedang berjalan.
 
 const motorBalap1 = new MotorBalap('Beat', 'Hitam', 350);
-motorBalap1.jalan(); // Output: Ferrari balap berwarna hitam berjalan dengan kecepatan maksimal 350 km/jam.
+motorBalap1.jalan(); // Output: Beat balap berwarna hitam berjalan dengan kecepatan maksimal 350 km/jam.
