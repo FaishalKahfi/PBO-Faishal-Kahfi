@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mahasiswa App</title>
+    <style>
+        .mahasiswa-card {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Data Mahasiswa IPWIJA</h1>
+    <div id="output"></div>
+
+    <script src="MahasiswaModel.js"></script>
+    <script src="MahasiswaView.js"></script>
+    <script src="MahasiswaController.js"></script>
+    <script>
+        const mahasiswaView = new MahasiswaView();
+        const mahasiswaController = new MahasiswaController(Mahasiswa, mahasiswaView);
+
+        mahasiswaController.tampilkanMahasiswa();
+        mahasiswaController.ubahNilai("Faishal Kahfi", "202301110060", 100);
+    </script>
+</body>
+</html>
