@@ -56,17 +56,19 @@ function pembagian(a, b) {
         }
         return a / b;
     } catch (error) {
-        console.error("Terjadi error:", error.message);
+        return "Terjadi error: " + error.message; // Mengembalikan pesan error sebagai string
     } finally {
-        console.log("Operasi pembagian selesai.");
+        console.log("Operasi pembagian selesai."); // Mencetak ini di akhir
     }
 }
 
 // Inisialisasi dan Penggunaan
 const kontrolNilai = new KontrolNilai(DataNilai, new TampilanNilai());
-console.log(kontrolNilai.tampilkanNilai([80, 90, 100])); // Menampilkan rata-rata dan median
+
+// Menampilkan rata-rata dan median
+console.log(kontrolNilai.tampilkanNilai([80, 90, 100])); // Menampilkan hasil rata-rata dan median
 console.log(kontrolNilai.tampilkanNilai([]));            // Menampilkan error: Data nilai tidak valid atau kosong.
 
+// Menghitung pembagian
 console.log(pembagian(10, 2)); // Output: 5
 console.log(pembagian(10, 0)); // Output: Terjadi error: Pembagian dengan nol tidak diperbolehkan.
-//         Operasi pembagian selesai.
