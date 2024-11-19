@@ -1,4 +1,4 @@
-<div id="content">halo</div>
+<div id="content" style="font-family: Arial, sans-serif; text-align: center; margin-top: 50px;"></div>
 
 <script>
   const pbo = {
@@ -19,13 +19,18 @@
     view: {
       signform: function () {
         return `
-          <div>
-            <label>Username:</label><br/>
-            <input type="text" id="username" placeholder="Masukkan username"><br/>
-            <label>Pin:</label><br/>
-            <input type="password" id="pin" placeholder="Masukkan pin"><br/><br/>
-            <button id="login">Login</button>
-            <button id="cancel">Cancel</button>
+          <div style="width: 300px; margin: auto; padding: 20px; border: 1px solid #ccc; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+            <h2 style="color: #333;">Login</h2>
+            <div style="margin-bottom: 15px;">
+              <label for="username" style="display: block; text-align: left; font-weight: bold;">Username:</label>
+              <input type="text" id="username" placeholder="Masukkan username" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+            </div>
+            <div style="margin-bottom: 15px;">
+              <label for="pin" style="display: block; text-align: left; font-weight: bold;">Pin:</label>
+              <input type="password" id="pin" placeholder="Masukkan pin" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+            </div>
+            <button id="login" style="width: 100%; padding: 10px; border: none; border-radius: 5px; background-color: #4CAF50; color: white; font-size: 16px; cursor: pointer;">Login</button>
+            <button id="cancel" style="width: 100%; padding: 10px; border: none; border-radius: 5px; background-color: #f44336; color: white; font-size: 16px; cursor: pointer; margin-top: 10px;">Cancel</button>
           </div>
         `;
       },
