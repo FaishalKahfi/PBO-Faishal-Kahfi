@@ -1,0 +1,60 @@
+<div id="content">halo</div>
+
+<script>
+  const pbo = {
+    model: {
+      mahasiswa: [
+        { username: "ratih", pin: "ratih123" },
+        { username: "afwanda", pin: "afwanda123" },
+        { username: "shandy", pin: "sandi123" },
+      ],
+    },
+    services: {
+      validateUser: function (username, pin) {
+        return pbo.model.mahasiswa.some(
+          (user) => user.username === username && user.pin === pin
+        );
+      },
+    },
+    view: {
+      signform: function () {
+        return `
+          <div>
+            <label>Username:</label><br/>
+            <input type="text" id="username" placeholder="Masukkan username"><br/>
+            <label>Pin:</label><br/>
+            <input type="password" id="pin" placeholder="Masukkan pin"><br/><br/>
+            <button id="login">Login</button>
+            <button id="cancel">Cancel</button>
+          </div>
+        `;
+      },
+      showMessage: function (message) {
+        alert(message);
+      },
+    },
+    controller: {
+      signin: function () {
+        const username = document.getElementById("username").value;
+        const pin = document.getElementById("pin").value;
+        if (pbo.services.validateUser(username, pin)) {
+          pbo.view.showMessage("Login berhasil! Selamat datang " + username + "!");
+        } else {
+          pbo.view.showMessage("Username atau pin salah.");
+        }
+      },
+      signout: function () {
+        document.getElementById("username").value = "";
+        document.getElementById("pin").value = "";
+      },
+      initSignform: function () {
+        document.getElementById("content").innerHTML = pbo.view.signform();
+        document.getElementById("login").onclick = pbo.controller.signin;
+        document.getElementById("cancel").onclick = pbo.controller.signout;
+      },
+    },
+  };
+
+  // Initialize form login
+  pbo.controller.initSignform();
+</script>
