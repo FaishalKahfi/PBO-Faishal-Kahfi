@@ -1,0 +1,150 @@
+<div id="content" style="font-family: Arial, sans-serif; text-align: center; margin-top: 50px;"></div>
+
+<script>
+  const pbo = {
+    model: {
+      mahasiswa: [
+        {
+          username: "faishal",
+          pin: "faishal123",
+          nama: "Faishal Kahfi",
+          nim: "202301110060",
+          alamat: "Jl. Rambutan VII No. 06, Gunung Putri",
+          noTelp: "081234567890",
+        },
+        {
+          username: "zilong",
+          pin: "zilong123",
+          nama: "Ahmad Zilong",
+          nim: "202301110011",
+          alamat: "Jl. Kenari No. 12, Cicadas",
+          noTelp: "081987654321",
+        },
+        {
+          username: "kagura",
+          pin: "kagura123",
+          nama: "Siti Kagura",
+          nim: "202301110022",
+          alamat: "Jl. Cempaka No. 5, Cibubur",
+          noTelp: "081122334455",
+        },
+      ],
+      admin: {
+        username: "admin",
+        pin: "admin123",
+      },
+    },
+    services: {
+      validateUser: function (username, pin) {
+        if (username === pbo.model.admin.username && pin === pbo.model.admin.pin) {
+          return "admin";
+        }
+        return pbo.model.mahasiswa.find(
+          (user) => user.username === username && user.pin === pin
+        );
+      },
+    },
+    view: {
+      signform: function () {
+        return `
+          <div style="width: 300px; margin: auto; padding: 20px; border: 1px solid #ccc; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+            <h2 style="color: #333;">Login</h2>
+            <div style="margin-bottom: 15px;">
+              <label for="username" style="display: block; text-align: left; font-weight: bold;">Username:</label>
+              <input type="text" id="username" placeholder="Masukkan username" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+            </div>
+            <div style="margin-bottom: 15px;">
+              <label for="pin" style="display: block; text-align: left; font-weight: bold;">Pin:</label>
+              <input type="password" id="pin" placeholder="Masukkan pin" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+            </div>
+            <button id="login" style="width: 100%; padding: 10px; border: none; border-radius: 5px; background-color: #4CAF50; color: white; font-size: 16px; cursor: pointer;">Login</button>
+            <button id="cancel" style="width: 100%; padding: 10px; border: none; border-radius: 5px; background-color: #f44336; color: white; font-size: 16px; cursor: pointer; margin-top: 10px;">Cancel</button>
+          </div>
+        `;
+      },
+      showTable: function (user) {
+        document.getElementById("content").innerHTML = `
+          <div style="width: 600px; margin: auto; text-align: left;">
+            <h2 style="text-align: center;">Data Mahasiswa</h2>
+            <table border="1" style="width: 100%; border-collapse: collapse;">
+              <tr style="background-color: #f2f2f2;">
+                <th style="padding: 10px;">Nama Lengkap</th>
+                <td style="padding: 10px;">${user.nama}</td>
+              </tr>
+              <tr>
+                <th style="padding: 10px;">NIM</th>
+                <td style="padding: 10px;">${user.nim}</td>
+              </tr>
+              <tr style="background-color: #f2f2f2;">
+                <th style="padding: 10px;">Alamat</th>
+                <td style="padding: 10px;">${user.alamat}</td>
+              </tr>
+              <tr>
+                <th style="padding: 10px;">No Telepon</th>
+                <td style="padding: 10px;">${user.noTelp}</td>
+              </tr>
+            </table>
+            <button id="logout" style="width: 100%; padding: 10px; margin-top: 20px; border: none; border-radius: 5px; background-color: #f44336; color: white; font-size: 16px; cursor: pointer;">Logout</button>
+          </div>
+        `;
+        document.getElementById("logout").onclick = pbo.controller.initSignform;
+      },
+      showAdminTable: function () {
+        const tableRows = pbo.model.mahasiswa
+          .map(
+            (user) => `
+            <tr>
+              <td style="padding: 10px;">${user.nama}</td>
+              <td style="padding: 10px;">${user.nim}</td>
+              <td style="padding: 10px;">${user.alamat}</td>
+              <td style="padding: 10px;">${user.noTelp}</td>
+            </tr>
+          `
+          )
+          .join("");
+        document.getElementById("content").innerHTML = `
+          <div style="width: 800px; margin: auto; text-align: left;">
+            <h2 style="text-align: center;">Data Semua Mahasiswa</h2>
+            <table border="1" style="width: 100%; border-collapse: collapse;">
+              <tr style="background-color: #f2f2f2;">
+                <th style="padding: 10px;">Nama Lengkap</th>
+                <th style="padding: 10px;">NIM</th>
+                <th style="padding: 10px;">Alamat</th>
+                <th style="padding: 10px;">No Telepon</th>
+              </tr>
+              ${tableRows}
+            </table>
+            <button id="logout" style="width: 100%; padding: 10px; margin-top: 20px; border: none; border-radius: 5px; background-color: #f44336; color: white; font-size: 16px; cursor: pointer;">Logout</button>
+          </div>
+        `;
+        document.getElementById("logout").onclick = pbo.controller.initSignform;
+      },
+    },
+    controller: {
+      signin: function () {
+        const username = document.getElementById("username").value;
+        const pin = document.getElementById("pin").value;
+        const user = pbo.services.validateUser(username, pin);
+        if (user === "admin") {
+          pbo.view.showAdminTable();
+        } else if (user) {
+          pbo.view.showTable(user);
+        } else {
+          alert("Username atau pin salah.");
+        }
+      },
+      signout: function () {
+        document.getElementById("username").value = "";
+        document.getElementById("pin").value = "";
+      },
+      initSignform: function () {
+        document.getElementById("content").innerHTML = pbo.view.signform();
+        document.getElementById("login").onclick = pbo.controller.signin;
+        document.getElementById("cancel").onclick = pbo.controller.signout;
+      },
+    },
+  };
+
+  // Initialize form login
+  pbo.controller.initSignform();
+</script>
